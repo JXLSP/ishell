@@ -36,7 +36,9 @@ enum status
     WORD = 3,
 };
 
-void init_envroment(int argc, char **argv);
+struct termios old_attr, new_attr;
+
+void init_environment(int argc, char **argv);
 
 string get_env(string name);
 
