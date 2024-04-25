@@ -19,6 +19,30 @@ void init_environment(int argc, char **argv)
     tcsetattr(STDIN_FILENO, TCSANOW, &new_attr);
 }
 
+string get_env(string name)
+{
+    if (envs.find(name) != envs.end())
+    {
+        return envs[name];
+    }
+    return "";
+}
+
+string get_path()
+{
+    char path[2048]{0}
+    getcwd(path, 2048);
+    return path;
+}
+
+void env()
+{
+    for (const auto &item : envs)
+    {
+        cout << item.first << "==" << item.second << endl;
+    }
+}
+
 int main(int argc, char **argv)
 {
     string command_line = "";
