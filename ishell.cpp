@@ -43,6 +43,48 @@ void env()
     }
 }
 
+void updated_pwd(string pass)
+{
+    envs["OLDPWD"] = envs["PWD"];
+    envs["PWD"] = pass;
+}
+
+void cd_command(vector<string> &command)
+{
+    string path = "";
+    if (command.size() == 1)
+    {
+        path = get_env("HOME");
+    }
+    else 
+    {
+        path = command[1];
+    }
+
+    if (path == ".")
+    {
+        return;
+    }
+
+    if (path == "~")
+    {
+        path = get_env("HOME");
+    }
+    else if (path == "-")
+    {
+        path = get_env("OLDPWD");
+        count << path << endl;
+    }
+
+    int ret = chdir(path.c_str());
+    if (ret)
+    {
+        cout << "ishell : cd : " << path << ":" << strerror(errno) << endl;
+        return;
+    }
+    updated_pwd(path);
+}
+
 int main(int argc, char **argv)
 {
     string command_line = "";

@@ -44,7 +44,7 @@ string get_env(string name);
 
 string get_path();
 
-void updated_pwd(string path);
+void updated_pwd(string pass);
 
 void env();
 
